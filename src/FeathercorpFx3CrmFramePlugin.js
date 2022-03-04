@@ -1,7 +1,7 @@
-import { FlexPlugin } from 'flex-plugin';
-import FeatherTheme from './FeatherCorpTheme';
+import { FlexPlugin } from "@twilio/flex-plugin";
+import FeatherTheme from "./FeatherCorpTheme";
 
-const PLUGIN_NAME = 'FeathercorpFx3CrmFramePlugin';
+const PLUGIN_NAME = "FeathercorpFx3CrmFramePlugin";
 
 export default class FeathercorpFx3CrmFramePlugin extends FlexPlugin {
   constructor() {
@@ -21,17 +21,17 @@ export default class FeathercorpFx3CrmFramePlugin extends FlexPlugin {
 
     // show Task with customer data populated by the IVR
     manager.strings.TaskHeaderLine =
-      '{{task.attributes.account_data.first_name}} ' +
-      '{{task.attributes.account_data.last_name}}';
+      "{{task.attributes.account_data.first_name}} " +
+      "{{task.attributes.account_data.last_name}}";
     manager.strings.TaskLineCallReserved =
-      'SLA: {{task.attributes.account_data.service_level}}';
+      "SLA: {{task.attributes.account_data.service_level}}";
 
     // use the Action Framework to trigger the outbound call passing in
     // event data containing phone number
     function receiveMessage(event) {
-      console.log('Message Received', event);
-      flex.Actions.invokeAction('StartOutboundCall', {
-        destination: '' // set to the phone number received from CRM
+      console.log("Message Received", event);
+      flex.Actions.invokeAction("StartOutboundCall", {
+        destination: "", // set to the phone number received from CRM
       });
     }
 
@@ -42,11 +42,11 @@ export default class FeathercorpFx3CrmFramePlugin extends FlexPlugin {
       flex.AgentDesktopView.defaultProps.showPanel2 = false;
 
       // add event listener for messages arriving from the CRM
-      window.addEventListener('message', receiveMessage, false);
+      window.addEventListener("message", receiveMessage, false);
 
       // when an agent selects a task, use the Actions Framework to
       // send task attributes to the parent window (CRM)
-      flex.Actions.addListener('afterSelectTask', (payload) => {
+      flex.Actions.addListener("afterSelectTask", (payload) => {
         if (payload.task && payload.task.attributes) {
           window.top.postMessage(payload.task.attributes);
         }
