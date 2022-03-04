@@ -1,4 +1,4 @@
-import { FlexPlugin } from 'flex-plugin';
+import { FlexPlugin } from '@twilio/flex-plugin';
 import FeatherTheme from './FeatherCorpTheme';
 
 const PLUGIN_NAME = 'FeathercorpFx3CrmFramePlugin';
